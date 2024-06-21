@@ -1,0 +1,129 @@
+
+
+.notInserted{
+    margin-left: 50px;
+}
+
+table, td, th {  
+    border: 1px solid #ddd;
+    text-align: left;
+    margin: auto;
+}
+
+table {
+    margin-top: 50px;
+    border-collapse: collapse;
+    width: 700px;
+}
+
+th, td {
+    padding: 15px;
+    margin-left: 600px;
+    width: 300px;
+}
+
+
+select{
+    width:200px;
+    height: 45px;
+    margin: 0px 70px 0px 70px;
+    padding: 3px;
+    border: 2px solid #ffca40;
+    color:rgb(75, 75, 75);
+    border-radius: 30px;
+    font-size: 18px;
+    text-align: center;
+}
+
+body{
+    text-align: center;
+}
+
+img{
+    text-align: center;
+    width: 60px;
+    position: absolute;
+    margin: 20px;
+    margin-top:22px;
+    left: 0;
+    position: fixed;
+}
+
+h4{
+    margin: 50px 20px 50px 20px;
+    display: inline-block;
+    color:rgb(75, 75, 75);
+    font-size: 40px;
+}
+
+.addProductEnabled {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    height: 45px;
+    border-radius: 30px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin-left: -100px;
+    margin-top: 50px;
+    z-index: 1;
+}
+
+.addProductDisabled {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    height: 45px;
+    border-radius: 30px;
+    background-color: rgb(108, 110, 108);
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin-left: -100px;
+    margin-top: 50px;
+    z-index: 1;
+}
+
+.deleteProductEnabled {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    height: 45px;
+    border-radius: 30px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin-left: -100px;
+    margin-top: 50px;
+    z-index: 1;
+}
+
+.deleteProductDisabled {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    height: 45px;
+    border-radius: 30px;
+    background-color: rgb(108, 110, 108);
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin-left: -100px;
+    margin-top: 50px;
+    z-index: 1;
+}
+
+#selectOfInsertProducts {
+    z-index: 2;
+    position: relative;
+    opacity: 0;
+}
+
+#selectOfToDeleteProducts{
+    z-index: 2;
+    position: relative;
+    opacity: 0;
+}

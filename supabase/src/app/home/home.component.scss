@@ -1,0 +1,32 @@
+
+body{
+    text-align: center;
+}
+h1{
+    text-align: center;
+    margin-top: 25px;
+}
+
+#logo{
+    margin-top: 50px;
+    width: 100px;
+}
+
+button{
+    background-color: #ffca40;
+    border: 2px solid #ffca40;
+    margin: 20px;
+    padding: 20px;
+    width: 220px;
+    color: rgb(75, 75, 75);
+    font-size: 15px;
+    border-radius: 70px;
+    font-weight: bold;
+    margin-top: 35px;
+}
+
+button:hover{
+    background-color: white;
+    border: 2px solid #ffca40;
+    color:rgb(75, 75, 75);
+}

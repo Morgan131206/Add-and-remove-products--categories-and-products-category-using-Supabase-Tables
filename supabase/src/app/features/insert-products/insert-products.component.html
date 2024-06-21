@@ -1,0 +1,38 @@
+<body>
+    <a routerLink="" id="back">&#x2190;	Back Home</a>
+    <img src="assets/img/McDonald's_Golden_Arches.png">
+    <h4> Products </h4>
+    <div id="container">
+        <h5> Insert a product</h5>
+        <form (submit)="onSubmit()">
+            <label for="name"> <b>Name</b>: </label>
+            <input required type="text" [(ngModel)]="formData.item" name="name">
+
+            <br>
+
+            <label for="price"> <b>Price</b>: </label>
+            <input required type="number" min="0" [(ngModel)]="formData.price" name="price">
+
+            <br>
+
+            <label for="img"> <b>Image Link</b>: </label>
+            <input required type="text" [(ngModel)]="formData.image" name="img">
+            
+            <br>
+            
+            <span class = {{this.class}}></span>
+            <button type="submit">DONE</button>
+        </form>
+    </div>
+
+    <div id="deleteProductDiv">
+        <h5> Delete a product</h5>
+        <select [(ngModel)]="selectedProduct">        
+            @for(product of this.products; track $index){
+                <option value = {{product.id}}>{{product.item}}</option>
+            }
+        </select>
+        <button id="deleteButton" (click)="deleteSelectedProduct(this.selectedProduct)"> DELETE </button>
+    </div>
+
+</body>

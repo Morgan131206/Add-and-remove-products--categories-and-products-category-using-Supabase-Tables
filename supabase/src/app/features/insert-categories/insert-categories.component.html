@@ -1,0 +1,35 @@
+<body>
+    <a routerLink="" id="back">&#x2190;	Back Home</a>
+    <img src="assets/img/McDonald's_Golden_Arches.png">
+     <h4> Categories </h4>
+    <div id="container">
+       
+        <h5> Insert a category</h5>
+        <form (submit)="onSubmit()">
+            <label for="name"> <b>Name</b>: </label>
+            <input required type="text" [(ngModel)]="formData.name" name="name">
+
+            <br>
+
+            <label for="image"> <b>Image Link</b>: </label>
+            <input required type="text" [(ngModel)]="formData.image" name="image">
+
+            <br>
+            <div id = "alert">
+                <p class = {{this.class}} ></p>
+                <p class = {{this.found}} >Category already inserted!</p>
+            </div>
+            <button type="submit">DONE</button>
+        </form>
+    </div>
+
+    <div id="deleteProductDiv">
+        <h5> Delete a category</h5>
+        <select [(ngModel)]="selectedCategory">        
+            @for(category of this.categories; track $index){
+                <option value = {{category.id}}>{{category.name}}</option>
+            }
+        </select>
+        <button id="deleteButton" (click)="deleteSelectedCategory(this.selectedCategory)"> DELETE </button>
+    </div>
+</body>

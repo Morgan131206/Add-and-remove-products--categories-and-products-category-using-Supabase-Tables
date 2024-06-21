@@ -1,0 +1,107 @@
+<body>
+    <a routerLink="" id="back">&#x2190;	Back Home</a>
+    <img src="assets/img/McDonald's_Golden_Arches.png">
+    <h4> Change the products in your categories </h4>
+    <br>
+    <div id="category">
+        <p>Select the category</p>
+        <select (change)="carica(selectProductToInsert)" [(ngModel)]="selectedCategory">
+                @for(category of this.categories; track $index){
+                    <option value = {{category.id}} >{{category.name}}</option>
+                }
+        </select>
+    </div>
+        
+    <!-- <div id="insert">
+            <p>Select inserted product</p>
+        <select>
+            <option></option>
+            
+            @for(i of this.inseriti; track $index){
+                <option value = {{i.id}}>{{i.item}}</option>
+            }
+        </select>
+    </div> -->
+
+    <div id="insert">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (i of this.categories; track $index) {
+                    @if(i.id == selectedCategory){
+                        @for(p of i.products; track $index){
+                            <tr>
+                                <td>{{p.item}}</td>
+                                <td>${{p.price}}</td>
+                            </tr> 
+                        }
+                    }
+                    
+                }
+            </tbody>
+        </table>
+    </div>
+    
+    <button [ngClass]="{'addProductDisabled': isButtonDisabled}" class="addProductEnabled">
+        <p > Add Product + </p>
+    </button>
+
+    <div id="notInsert" style="margin-top: 50px;">
+        <select #selectProductToInsert id="selectOfInsertProducts" (change)="aggiungiProdotto()" [(ngModel)]="selectedProduct" >        
+            @for(n of this.nonInseriti; track $index){
+                <option value = {{n.id}}>{{n.item}}</option>
+            }
+        </select>
+    </div>
+
+    <button [ngClass]="{'deleteProductDisabled': isDeleteButtonDisabled}" class="deleteProductEnabled">
+        <p > Remove product - </p>
+    </button>
+
+    <div id="insert" style="margin-top: 50px;">
+        <select (change)="rimuoviProdotto()" [(ngModel)]="selectedProductToDelete" id="selectOfToDeleteProducts">        
+            @for (i of this.categories; track $index) {
+                @if(i.id == selectedCategory){
+                    @for(p of i.products; track $index){
+                        <option value="{{p.id}}">
+                            {{p.item}}
+                        </option> 
+                    }
+                }
+            }
+        </select>
+    </div>
+
+    
+</body>        
+
+    
+
+
+
+     <!-- @for (item of this.categories; track $index) {
+        @if(item.id == selectedCategory && selectedCategory != null){
+            @if(categoriaPresente(selectedCategory)){
+                @for(p of this.products; track $index){
+                    @if(prodottoPresente(p)){
+                        <p>{{ p.item }}</p>
+                    }
+                    @else {
+                        <p style="color: rgb(255, 0, 0);">{{ p.item }}</p>
+                     }
+                }
+            } 
+            @else {
+                @for(p of this.products; track $index){
+                    <p style="color: rgb(255, 0, 0);">{{ p.item }}</p>
+                }
+            } 
+        }
+    } -->
+
+    <!-- <p>{{this.inseriti[0].item}}</p> -->
