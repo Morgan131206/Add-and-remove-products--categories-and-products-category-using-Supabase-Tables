@@ -117,19 +117,20 @@ export class ChangeCategoriesComponent {
       return this.downloadCategories();
     })
     .then(response=>{
+      this.downloadCategoryProducts();
       this.carica(null)
     })
     
   }
 
   rimuoviProdotto(){
-   
     this.service.deleteFromCategoryProducts(this.getCategoryProductById())
     
     .then (response => {
       return this.downloadCategories();
     })
     .then(response=>{
+      this.downloadCategoryProducts();
       this.carica(null)
     })
   }
@@ -150,9 +151,8 @@ export class ChangeCategoriesComponent {
 
   getCategoryProductById() :any{
     for(let cp of this.categoryProducts){
-      //alert(this.selectedCategory);
+
       if(cp.category == this.selectedCategory && cp.product == this.selectedProductToDelete){
-        
         return cp.id;
       }
     }

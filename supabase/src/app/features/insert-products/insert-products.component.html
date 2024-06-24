@@ -21,17 +21,19 @@
             <br>
             
             <span class = {{this.class}}></span>
+            <span class = {{this.found}}> Product already inserted! </span>
             <button type="submit">DONE</button>
         </form>
     </div>
 
     <div id="deleteProductDiv">
         <h5> Delete a product</h5>
-        <select [(ngModel)]="selectedProduct">        
+        <select [(ngModel)]="selectedProduct" (change)="changeClass()">        
             @for(product of this.products; track $index){
                 <option value = {{product.id}}>{{product.item}}</option>
             }
         </select>
+        <span class = {{this.deleteSpanClass}}></span>
         <button id="deleteButton" (click)="deleteSelectedProduct(this.selectedProduct)"> DELETE </button>
     </div>
 

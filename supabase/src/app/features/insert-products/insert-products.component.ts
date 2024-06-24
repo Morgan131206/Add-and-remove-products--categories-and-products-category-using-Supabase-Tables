@@ -21,6 +21,8 @@ export class InsertProductsComponent {
   products: any[] = [];
   selectedProduct: any;
   class = "hide";
+  found = "notFound"
+  deleteSpanClass = "hide";
 
   ngOnInit (){
     this.loadData();
@@ -38,7 +40,57 @@ export class InsertProductsComponent {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
+    const { data } =  await this.service.supabase.from('products').select('*');
+      
+      if(this.formData.image != '' && this.formData.item != ''){
+          
+          if(this.findProducts(data) == false){
+            this.service.submitProductsForm(this.formData)
+            .then((response) => {
+              this.loadData();
+            })
+              
+            // .then((response) => {
+            //   // Handle success (e.g., show a success message)
+            // })
+            // .catch((error) => {
+            //   // Handle error (e.g., show an error message)
+            // });
+
+          this.formData.item ='';
+          this.formData.image ='';
+          this.class = "inserted";
+          this.found = "notFound";
+          }
+          else  {
+            this.found = "found";
+            this.class = "hide";
+          }
+
+      }
+      else{
+        this.class = "show";
+        this.found = "notFound";
+      }
+
+    }
+
+      findProducts(data :any){
+      // let boolFound = false;
+      if(data){
+        for(let x of data){
+          if(x.item.toLowerCase() == this.formData.item.toLowerCase()){
+            return true;
+            // boolFound = true;
+            // this.found = "found";
+          }
+        } 
+      }
+      return false;
+    }
+
+  /*onSubmit() {
     if(this.formData.image != '' && this.formData.item != '' && this.formData.price != ''){
         this.service.submitProductsForm(this.formData)
         .then((response) => {
@@ -58,13 +110,17 @@ export class InsertProductsComponent {
     else{
       this.class = "show";
     }  
-  }
+  }*/
 
   deleteSelectedProduct(id :any): void {
     this.service.deleteFromProducts(id)
     .then(response => {
       this.loadData();
+      this.deleteSpanClass = "deleted"
     })
-    
+  }
+
+  changeClass() {
+    this.deleteSpanClass = "hide";
   }
 }

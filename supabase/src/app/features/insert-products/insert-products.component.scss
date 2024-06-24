@@ -14,7 +14,7 @@ body {
     border-radius: 50px;
     width: 350px;
     height: 450px;
-    margin-left: 20%;
+    margin-left: 25vw;
     margin-top: 30px;
     margin-bottom: 25px;
     box-shadow: 0px 0px 5px 0.5px #ffca40;
@@ -115,6 +115,20 @@ a{
     content: "Element inserted!";
 }
 
+.deleted {
+    text-align: center;
+    position: fixed;
+    display: block;
+    color: green;
+    font-size: 15px;
+    margin: 116px;
+    margin-top: 40px;
+}
+
+.deleted::after {
+    content: "Element deleted!";
+}
+
 #deleteProductDiv {
     float: right;
     padding: 0px 10px;
@@ -124,7 +138,7 @@ a{
     border-radius: 50px;
     width: 350px;
     height: 450px;
-    margin-right: 20%;
+    margin-right: 25vw;
     margin-top: 30px;
     margin-bottom: 25px;
     box-shadow: 0px 0px 5px 0.5px #ffca40;
@@ -151,4 +165,19 @@ select{
     font-weight: bold;
     padding: 5% 7%;
     margin-top: 100px;
+}
+
+.found{
+    margin: auto;
+    margin-left: 85px;
+     margin-top: 0px; 
+    text-align: center;
+    position: fixed;
+    display: block;
+    color: red;
+    font-size: 15px;
+ }
+
+ .notFound{
+    display: none;
 }

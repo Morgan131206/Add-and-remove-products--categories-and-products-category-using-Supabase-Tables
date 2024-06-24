@@ -25,11 +25,12 @@
 
     <div id="deleteProductDiv">
         <h5> Delete a category</h5>
-        <select [(ngModel)]="selectedCategory">        
+        <select [(ngModel)]="selectedCategory" (change)="changeClass()">        
             @for(category of this.categories; track $index){
                 <option value = {{category.id}}>{{category.name}}</option>
             }
         </select>
+        <p class = {{this.classPDelete}} >Element deleted!</p>
         <button id="deleteButton" (click)="deleteSelectedCategory(this.selectedCategory)"> DELETE </button>
     </div>
 </body>
