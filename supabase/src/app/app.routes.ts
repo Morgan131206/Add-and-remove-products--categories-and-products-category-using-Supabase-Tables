@@ -4,6 +4,7 @@ import { InsertCategoriesComponent } from './features/insert-categories/insert-c
 import { InsertProductsComponent } from './features/insert-products/insert-products.component';
 import { ChangeCategoriesComponent } from './features/change-categories/change-categories.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 export const routes: Routes = [
     { path: 'categories', component: InsertCategoriesComponent },
     { path: 'change', component: ChangeCategoriesComponent },

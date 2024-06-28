@@ -117,4 +117,8 @@ export class SupabaseService {
       throw error;
     }
   }
+
+  signIn(email: string) {
+    return this.supabase.auth.signInWithOtp({ email })
+  }
 }
