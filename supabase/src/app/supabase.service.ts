@@ -121,4 +121,46 @@ export class SupabaseService {
   signIn(email: string) {
     return this.supabase.auth.signInWithOtp({ email })
   }
+
+  async login(username: string, password: string): Promise<any> {
+    const { data, error } = await this.supabase
+      .from('accesso')
+      .select('*')
+      .eq('username', username)
+      .eq('password', password);
+
+    if (error) {
+      throw error;
+    }
+    console.log(data)
+    return data;
+  }
+
+  async updateStateInActive(product: any) {
+    const { data, error } = await this.supabase
+    .from('products')
+    .update({ isActive: true })
+    .eq('id', product.id)
+    .select()
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  }
+
+  async updateStateInDeactive(product: any) {
+    const { data, error } = await this.supabase
+    .from('products')
+    .update({ isActive: false })
+    .eq('id', product.id)
+    .select()
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  }
 }

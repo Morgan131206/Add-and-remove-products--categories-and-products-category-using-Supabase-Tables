@@ -1,23 +1,19 @@
-<div class="row flex-center flex">
-  <div class="col-6 form-widget" aria-live="polite">
-    <h1 class="header">Supabase + Angular</h1>
-    <p class="description">Sign in via magic link with your email below</p>
-    <form (ngSubmit)="onSubmit()" [formGroup]="signInForm" class="form-widget">
-      <div>
-        <label for="email">Email</label>
-        <input
-          id="email"
-          formControlName="email"
-          class="inputField"
-          type="email"
-          placeholder="Your email"
-        />
-      </div>
-      <div>
-        <button type="submit" class="button block" [disabled]="loading">
-          {{ loading ? 'Loading' : 'Send magic link' }}
-        </button>
-      </div>
+<body>
+  <img id="logo" src="assets/img/McDonald's_Golden_Arches.png">
+  <h1>McDonalds Database</h1>
+
+  <div id="container">
+    <h2>Log In</h2>
+    <form (ngSubmit)="login()">
+      <label for="username">Username:</label> <br>
+      <input type="text" id="username" [(ngModel)]="username" name="username" required>
+      <br>
+      <label for="password">Password:</label> <br>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+      <br>
+      <button type="submit">Login</button>
     </form>
+
+    <h2 class="hide" [ngClass]="{'invalidLogin': invalidLogin}"> Invalid Login Credentials! </h2>
   </div>
-</div>
+</body>

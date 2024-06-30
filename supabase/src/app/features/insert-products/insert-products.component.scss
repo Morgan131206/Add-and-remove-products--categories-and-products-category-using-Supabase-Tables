@@ -3,27 +3,32 @@ body {
     text-align: center;
     margin: 0;
     font-size: 35px;
+    padding-bottom: 200px;
 }
 
 #container {
-    float: left;
+    float: center;
     padding: 0px 10px;
     border: 0.5 solid #ffca40;
     background-color: white;
     color: rgb(75, 75, 75);
     border-radius: 50px;
-    width: 350px;
-    height: 450px;
-    margin-left: 24vw;
-    margin-top: 30px;
-    margin-bottom: 25px;
+    width: 54%;
     box-shadow: 0px 0px 5px 0.5px #ffca40;
+    margin-left: 22%;
+    margin-top: 35px;
+    padding-bottom: 12px;
 }
 
-label{
-    font-size: 20px;
-    margin-bottom: 10px;
-    display: block;
+#containerOfTheTable {
+    float: center;
+    width: 55%; //55
+    margin-top: 30px;
+    margin-left: 22vw;
+}
+
+span{
+    font-size: 13px;
 }
 
 input[type=text], input[type=number] {
@@ -33,9 +38,11 @@ input[type=text], input[type=number] {
     color:rgb(75, 75, 75);
     border-radius: 30px;
     box-sizing: border-box;
-    font-size: 20px;
+    font-size: 15px;
+    width: 150px;
     margin-bottom: 20px;
     text-align: center;
+    margin-right: 10px;
 }
 button:hover{
     background-color: white;
@@ -46,43 +53,12 @@ button {
     background-color: #ffca40;
     border: 2px solid #ffca40;
     color: rgb(75, 75, 75);
-    font-size: 15px;
+    font-size: 13px;
+    padding: 1% 1%;
     border-radius: 70px;
     font-weight: bold;
-    padding: 5% 7%;
     margin-top: 20px;
-}
-
-h4{
-    margin: 50px 20px 40px 20px;
-    color:rgb(75, 75, 75);
-}
-
-h5{
-    margin: 20px 0px;
-    color: #ffca40;
-}
-
-img{
-    text-align: center;
-    width: 60px;
-    position: fixed;
-    margin: 20px;
-    margin-top:-20px;
-    left: 0;
-}
-
-
-a{
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    color: rgb(75, 75, 75);
-    position: absolute;
-    font-size: 20px;
-    margin: 45px;
-    margin-top: 75px;
-    bottom: 0;
+    margin-left: 50px;
 }
 
 .hide{
@@ -90,12 +66,14 @@ a{
 }
 
 .show {
+    display: inline;
+}
+
+.show {
     text-align: center;
-    position: fixed;
     display: block;
     color: red;
     font-size: 15px;
-    margin: 125px;margin-top: 0px;
 }
 
 .show::after {
@@ -104,44 +82,13 @@ a{
 
 .inserted {
     text-align: center;
-    position: fixed;
     display: block;
     color: green;
     font-size: 15px;
-    margin: 116px;margin-top: 0px;
 }
 
 .inserted::after {
     content: "Element inserted!";
-}
-
-.deleted {
-    text-align: center;
-    position: fixed;
-    display: block;
-    color: green;
-    font-size: 15px;
-    margin: 116px;
-    margin-top: 40px;
-}
-
-.deleted::after {
-    content: "Element deleted!";
-}
-
-#deleteProductDiv {
-    float: right;
-    padding: 0px 10px;
-    border: 0.5 solid #ffca40;
-    background-color: white;
-    color: rgb(75, 75, 75);
-    border-radius: 50px;
-    width: 350px;
-    height: 450px;
-    margin-right: 24vw;
-    margin-top: 30px;
-    margin-bottom: 25px;
-    box-shadow: 0px 0px 5px 0.5px #ffca40;
 }
 
 select{
@@ -157,27 +104,120 @@ select{
 }
 
 #deleteButton {
+    float: right;
     background-color: red;
     border: 2px solid red;
     color: white;
     font-size: 15px;
     border-radius: 70px;
     font-weight: bold;
-    padding: 5% 7%;
-    margin-top: 100px;
+    padding: 1% 0%;
+    position: absolute;
+    top: 35px;
+    right: 80px;
+    width: 100px;
+    text-align: center;
+}
+
+#activateStateButton {
+    float: right;
+    width: 100px;
+    background-color: green;
+    border: 2px solid green;
+    color: white;
+    font-size: 15px;
+    border-radius: 70px;
+    font-weight: bold;
+    padding: 1% 0%;
+    position: absolute;
+    top: 35px;
+    right: 301px;
+    text-align: center;
+    
+}
+
+#deactivateStateButton {
+    float: right;
+    width: 100px;
+    background-color: gray;
+    border: 2px solid gray;
+    color: white;
+    font-size: 15px;
+    border-radius: 70px;
+    font-weight: bold;
+    padding: 1% 0%;
+    position: absolute;
+    top: 35px;
+    right: 190px;
+    text-align: center;
+}
+
+#deleteButton:hover, #activateStateButton:hover, #deactivateStateButton:hover {
+    background-color: white;
+    color: black;
+}
+
+#loadingImg {
+    width: 100px;
+    height: 100px;
+    z-index: 1000;
+    float: center;
+}
+
+.visualEffectOfTable {
+    filter: blur(7px);
+    pointer-events: none
+}
+
+.circleStateActive {
+    width: 26px;
+    height: 25px;
+    color: green;
+    background-color: green;
+    border-radius: 100%;
+}
+
+.circleStateDeactive {
+    width: 26px;
+    height: 25px;
+    color: gray;
+    background-color: gray;
+    border-radius: 100%;
+}
+
+h1{
+    margin-bottom: 30px;
+    float: center;
 }
 
 .found{
-    margin: auto;
-    margin-left: 85px;
-     margin-top: 0px; 
     text-align: center;
-    position: fixed;
     display: block;
     color: red;
     font-size: 15px;
- }
+}
 
- .notFound{
+.notFound{
     display: none;
+}
+
+table {
+    width: 25%;
+    height: 25%;
+}
+
+img {
+   // width: 45%;
+    height: 50px;
+}
+
+td, th {
+    width: 200px;
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 55%;
+    margin-bottom: -700px;
+    float: center;
 }

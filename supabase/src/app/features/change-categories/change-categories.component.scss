@@ -1,32 +1,113 @@
-
-
-.notInserted{
-    margin-left: 50px;
+body {
+    background-color: #f8f8f8;
+    text-align: center;
+    margin: 0;
+    font-size: 35px;
+    padding-bottom: 150px;
 }
 
-table, td, th {  
-    border: 1px solid #ddd;
-    text-align: left;
-    margin: auto;
+#containerOfTheTable {
+    float: center;
+    width: 55%;
+    margin-top: 30px;
+    margin-left: 22vw;
 }
 
-table {
-    margin-top: 50px;
-    border-collapse: collapse;
-    width: 700px;
+#container {
+    float: center;
+    padding: 0px 10px;
+    border: 0.5 solid #ffca40;
+    background-color: white;
+    color: rgb(75, 75, 75);
+    border-radius: 50px;
+    width: 54%;
+    box-shadow: 0px 0px 5px 0.5px #ffca40;
+    margin-left: 22%;
+    margin-top: 35px;
 }
 
-th, td {
-    padding: 15px;
-    margin-left: 600px;
-    width: 300px;
+span{
+    font-size: 13px;
 }
 
+h2{
+    font-size: 25px;
+    color: #ffca40;
+    margin-top: -5px;
+}
+
+#imageOfPointer{
+    margin-top: -40px;
+    
+}
+
+img {
+    height: 50px;
+}
+
+input[type=text], input[type=number] {
+    padding: 5px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    color:rgb(75, 75, 75);
+    border-radius: 30px;
+    box-sizing: border-box;
+    font-size: 15px;
+    width: 150px;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-right: 10px;
+}
+button:hover{
+    background-color: white;
+    border: 2px solid #ffca40;
+    color:rgb(75, 75, 75);
+}
+button {
+    background-color: #ffca40;
+    border: 2px solid #ffca40;
+    color: rgb(75, 75, 75);
+    font-size: 13px;
+    padding: 1% 1%;
+    border-radius: 70px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.hide{
+    display: none;
+}
+
+.show {
+    display: inline;
+}
+
+.show {
+    text-align: center;
+    display: block;
+    color: red;
+    font-size: 15px;
+}
+
+.show::after {
+    content: "Insert all fields!";
+}
+
+.inserted {
+    text-align: center;
+    display: block;
+    color: green;
+    font-size: 15px;
+}
+
+.inserted::after {
+    content: "Element inserted!";
+}
 
 select{
     width:200px;
     height: 45px;
-    margin: 0px 70px 0px 70px;
+    margin: 10px 10px 10px 10px;
     padding: 3px;
     border: 2px solid #ffca40;
     color:rgb(75, 75, 75);
@@ -35,95 +116,96 @@ select{
     text-align: center;
 }
 
-body{
-    text-align: center;
-}
-
-img{
-    text-align: center;
-    width: 60px;
-    position: absolute;
-    margin: 20px;
-    margin-top:22px;
-    left: 0;
-    position: fixed;
-}
-
-h4{
-    margin: 50px 20px 50px 20px;
-    display: inline-block;
-    color:rgb(75, 75, 75);
-    font-size: 40px;
-}
-
-.addProductEnabled {
-    position: absolute;
-    text-align: center;
-    width: 200px;
-    height: 45px;
-    border-radius: 30px;
-    background-color: green;
-    color: white;
-    font-weight: bold;
-    border: none;
-    margin-left: -100px;
-    margin-top: 50px;
-    z-index: 1;
-}
-
-.addProductDisabled {
-    position: absolute;
-    text-align: center;
-    width: 200px;
-    height: 45px;
-    border-radius: 30px;
-    background-color: rgb(108, 110, 108);
-    color: white;
-    font-weight: bold;
-    border: none;
-    margin-left: -100px;
-    margin-top: 50px;
-    z-index: 1;
-}
-
-.deleteProductEnabled {
-    position: absolute;
-    text-align: center;
-    width: 200px;
-    height: 45px;
-    border-radius: 30px;
+#deleteButton {
+    float: right;
     background-color: red;
+    border: 2px solid red;
     color: white;
+    font-size: 15px;
+    border-radius: 70px;
     font-weight: bold;
-    border: none;
-    margin-left: -100px;
-    margin-top: 50px;
-    z-index: 1;
-}
-
-.deleteProductDisabled {
+    padding: 1% 0%;
     position: absolute;
+    top: 70px;
+    right: 80px;
+    width: 100px;
     text-align: center;
+}
+
+#deleteButton:hover {
+    background-color: white;
+    color: black;
+}
+
+#loadingImg {
+    width: 100px;
+    height: 100px;
+    z-index: 1000;
+    float: center;
+}
+
+.visualEffectOfTable {
+    filter: blur(7px);
+    pointer-events: none
+}
+
+.circleStateActive {
+    width: 26px;
+    height: 25px;
+    color: green;
+    background-color: green;
+    border-radius: 100%;
+}
+
+.circleStateDeactive {
+    width: 26px;
+    height: 25px;
+    color: gray;
+    background-color: gray;
+    border-radius: 100%;
+}
+
+h1{
+    margin-top: 60px;
+    margin-bottom: 30px;
+    float: center;
+    font-size: 50px;
+}
+
+h5 {
+    border: 3px solid #ffca40;
+    border-radius: 100px;
+    padding: 20px;
+}
+
+.found{
+    margin: auto;
+    margin-left: 85px;
+     margin-top: 0px; 
+    text-align: center;
+    position: fixed;
+    display: block;
+    color: red;
+    font-size: 15px;
+}
+
+.notFound{
+    display: none;
+}
+
+table {
+    width: 25%;
+    height: 25%;
+
+}
+
+td, th {
     width: 200px;
-    height: 45px;
-    border-radius: 30px;
-    background-color: rgb(108, 110, 108);
-    color: white;
-    font-weight: bold;
-    border: none;
-    margin-left: -100px;
-    margin-top: 50px;
-    z-index: 1;
 }
 
-#selectOfInsertProducts {
-    z-index: 2;
-    position: relative;
-    opacity: 0;
-}
-
-#selectOfToDeleteProducts{
-    z-index: 2;
-    position: relative;
-    opacity: 0;
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 55%;
+    margin-bottom: -700px;
+    float: center;
 }

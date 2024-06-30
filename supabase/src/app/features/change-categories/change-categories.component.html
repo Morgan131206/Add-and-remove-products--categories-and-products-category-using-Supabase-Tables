@@ -1,107 +1,99 @@
 <body>
-    <a routerLink="" id="back">&#x2190;	Back Home</a>
-    <img src="assets/img/McDonald's_Golden_Arches.png">
-    <h4> Change the products in your categories </h4>
+    <a routerLink="../categories" id="back">&#x2190; Back To Categories</a>
+    <h1>Change the products in your category</h1>
+    <button [ngClass]="{'hide': !areButtonsAble}" id="deleteButton" (click)="deleteSelectedProducts()">Delete</button>
+
+    <img #imageOfPointer [src]="pointerOfSelectedCategory.image" style="width: 15%; height: 15%;">
+    <h2>{{pointerOfSelectedCategory.name}}</h2>
+
+    <img class="hide" [ngClass]="{'hide': !isLoadingImgShown}" id="loadingImg" src="https://i.gifer.com/ZKZg.gif">
+
     <br>
-    <div id="category">
-        <p>Select the category</p>
-        <select (change)="carica(selectProductToInsert)" [(ngModel)]="selectedCategory">
-                @for(category of this.categories; track $index){
-                    <option value = {{category.id}} >{{category.name}}</option>
-                }
-        </select>
-    </div>
+
+    <mat-form-field style="padding-right: 0.5%;" [ngClass]="{'visualEffectOfTable': isLoadingImgShown}">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Find a product by name" #input>
+    </mat-form-field>
+  
+    <div id="containerOfTheTable" [ngClass]="{'visualEffectOfTable': isLoadingImgShown}">
         
-    <!-- <div id="insert">
-            <p>Select inserted product</p>
-        <select>
-            <option></option>
-            
-            @for(i of this.inseriti; track $index){
-                <option value = {{i.id}}>{{i.item}}</option>
-            }
-        </select>
-    </div> -->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? toggleAllRows() : null; isAnyCheckboxChecked()"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                  [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null; isAnyCheckboxChecked()"
+                                  [checked]="selection.isSelected(row)"
+                                  [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+            </ng-container>
 
-    <div id="insert">
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (i of this.categories; track $index) {
-                    @if(i.id == selectedCategory){
-                        @for(p of i.products; track $index){
-                            <tr>
-                                <td>{{p.item}}</td>
-                                <td>${{p.price}}</td>
-                            </tr> 
-                        }
-                    }
-                    
+            <!-- Id Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{getConnectionIdByProductId(element.id)}} </td>
+            </ng-container>
+
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let element"> {{getFormattedPriceOfProduct(element.price)}} </td>
+            </ng-container>
+
+            <!-- Image Column -->
+            <ng-container matColumnDef="image">
+            <th style="padding-left: 0%;" mat-header-cell *matHeaderCellDef> Image </th>
+            <td style="padding-left: 0%;" mat-cell *matCellDef="let element"> <img [src]="element.image"></td>
+            </ng-container>
+
+            <!-- State Column -->
+            <ng-container matColumnDef="state">
+                <th mat-header-cell *matHeaderCellDef> State </th>
+                <td style="padding-left: 2%;" mat-cell *matCellDef="let element">
+                @if (element.isActive) {
+                    <div class="circleStateActive">.</div>
+                } 
+                @else {
+                    <div class="circleStateDeactive">.</div>
                 }
-            </tbody>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+
+            <tr style="height: 75px;" class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
         </table>
-    </div>
-    
-    <button [ngClass]="{'addProductDisabled': isButtonDisabled}" class="addProductEnabled">
-        <p > Add Product + </p>
-    </button>
 
-    <div id="notInsert" style="margin-top: 50px;">
-        <select #selectProductToInsert id="selectOfInsertProducts" (change)="aggiungiProdotto()" [(ngModel)]="selectedProduct" >        
-            @for(n of this.nonInseriti; track $index){
-                <option value = {{n.id}}>{{n.item}}</option>
-            }
-        </select>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" class="mat-elevation-z8" showFirstLastButtons aria-label="Select page of products">
+        </mat-paginator>
     </div>
 
-    <button [ngClass]="{'deleteProductDisabled': isDeleteButtonDisabled}" class="deleteProductEnabled">
-        <p > Remove product - </p>
-    </button>
-
-    <div id="insert" style="margin-top: 50px;">
-        <select (change)="rimuoviProdotto()" [(ngModel)]="selectedProductToDelete" id="selectOfToDeleteProducts">        
-            @for (i of this.categories; track $index) {
-                @if(i.id == selectedCategory){
-                    @for(p of i.products; track $index){
-                        <option value="{{p.id}}">
-                            {{p.item}}
-                        </option> 
-                    }
+    <div id="container">
+        <form (submit)="onSubmit()">
+            <span for="price"><b>Aggiungi</b>: </span>
+            <select [(ngModel)]="selectedProduct" name="product">        
+                @for(n of this.nonInseriti; track $index){
+                    <option [ngValue]="n.id">{{n.item}}</option>
                 }
-            }
-        </select>
-    </div>
-
+            </select>
     
-</body>        
-
-    
-
-
-
-     <!-- @for (item of this.categories; track $index) {
-        @if(item.id == selectedCategory && selectedCategory != null){
-            @if(categoriaPresente(selectedCategory)){
-                @for(p of this.products; track $index){
-                    @if(prodottoPresente(p)){
-                        <p>{{ p.item }}</p>
-                    }
-                    @else {
-                        <p style="color: rgb(255, 0, 0);">{{ p.item }}</p>
-                     }
-                }
-            } 
-            @else {
-                @for(p of this.products; track $index){
-                    <p style="color: rgb(255, 0, 0);">{{ p.item }}</p>
-                }
-            } 
-        }
-    } -->
-
-    <!-- <p>{{this.inseriti[0].item}}</p> -->
+            <button type="submit">DONE</button>
+        </form>
+      </div>
+</body>

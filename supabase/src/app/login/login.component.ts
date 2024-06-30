@@ -1,41 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SupabaseService } from '../supabase.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { routes } from '../app.routes';
+import { GlobalState } from '../../main';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [RouterLink, ReactiveFormsModule] // Importa ReactiveFormsModule
+  imports: [RouterLink, ReactiveFormsModule, FormsModule, RouterModule, CommonModule] // Importa ReactiveFormsModule
 })
 export class LoginComponent {
-  loading = false;
+  service = inject(SupabaseService);
+  username: string = '';
+  password: string = '';
+  isAuthenticated: boolean = false;
+  tables: any[] = [];
+  invalidLogin = false;
+  
+  constructor(private router: Router) { }
 
-  signInForm = this.formBuilder.group({
-    email: '',
-  });
-
-  constructor(
-    private readonly supabase: SupabaseService,
-    private readonly formBuilder: FormBuilder
-  ) {}
-
-  async onSubmit(): Promise<void> {
+  async login() {
     try {
-      this.loading = true;
-      const email = this.signInForm.value.email as string;
-      const { error } = await this.supabase.signIn(email);
-      if (error) throw error;
-      alert('Check your email for the login link!');
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
+      const user = await this.service.login(this.username, this.password);
+      if (user.length > 0) {
+        GlobalState.areRoutesEnable = true;
+        this.router.navigate(["home"]);
+      } else {
+        this.invalidLogin = true;
       }
-    } finally {
-      this.signInForm.reset();
-      this.loading = false;
+    } catch (error) {
+      console.error('Error logging in', error);
     }
+
+    this.password = ""
   }
+
 }

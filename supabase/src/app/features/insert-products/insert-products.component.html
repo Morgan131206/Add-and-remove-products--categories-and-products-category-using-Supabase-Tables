@@ -1,90 +1,107 @@
-<!-- <body>
-    <a routerLink="" id="back">&#x2190;	Back Home</a>
-    <img src="assets/img/McDonald's_Golden_Arches.png">
-    <h4> Products </h4>
-    <div id="container">
-        <h5> Insert a product</h5>
-        <form (submit)="onSubmit()">
-            <label for="name"> <b>Name</b>: </label>
-            <input required type="text" [(ngModel)]="formData.item" name="name">
+<body>
+  <a routerLink="../home" id="back">&#x2190;	Back Home</a>
+  <h1>Products</h1>
 
-            <br>
+  <button [ngClass]="{'hide': !areButtonsAble}" id="deleteButton" (click)="deleteSelectedProducts()">Delete</button>
+  <button [ngClass]="{'hide': !areButtonsAble}" id="deactivateStateButton" (click)="deactivateStateSelectedProducts()">Deactivate</button>
+  <button [ngClass]="{'hide': !areButtonsAble}" id="activateStateButton" (click)="activateStateSelectedProducts()">Activate</button>
 
-            <label for="price"> <b>Price</b>: </label>
-            <input required type="number" min="0" [(ngModel)]="formData.price" name="price">
+  <img [ngClass]="{'hide': !isLoadingImgShown}" id="loadingImg" src="https://i.gifer.com/ZKZg.gif">
 
-            <br>
+  <br>
 
-            <label for="img"> <b>Image Link</b>: </label>
-            <input required type="text" [(ngModel)]="formData.image" name="img">
-            
-            <br>
-            
-            <span class = {{this.class}}></span>
-            <span class = {{this.found}}> Product already inserted! </span>
-            <button type="submit">DONE</button>
-        </form>
-    </div>
+  <mat-form-field style="padding-right: 0.5%;" [ngClass]="{'visualEffectOfTable': isLoadingImgShown}">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Find a product by name" #input>
+  </mat-form-field>
 
-    <div id="deleteProductDiv">
-        <h5> Delete a product</h5>
-        <select [(ngModel)]="selectedProduct" (change)="changeClass()">        
-            @for(product of this.products; track $index){
-                <option value = {{product.id}}>{{product.item}}</option>
+  <div id="containerOfTheTable" [ngClass]="{'visualEffectOfTable': isLoadingImgShown}">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? toggleAllRows() : null; isAnyCheckboxChecked()"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null; isAnyCheckboxChecked()"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Price </th>
+          <td mat-cell *matCellDef="let element"> {{getFormattedPriceOfProduct(element.price)}} </td>
+        </ng-container>
+
+        <!-- Image Column -->
+        <ng-container matColumnDef="image">
+          <th style="padding-left: 0%;" mat-header-cell *matHeaderCellDef> Image </th>
+          <td style="padding-left: 0%;" mat-cell *matCellDef="let element"> <img [src]="element.image"></td>
+        </ng-container>
+
+        <!-- State Column -->
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef> State </th>
+          <td style="padding-left: 2%;" mat-cell *matCellDef="let element">
+            @if (element.isActive) {
+              <div class="circleStateActive">.</div>
+            } 
+            @else {
+              <div class="circleStateDeactive">.</div>
             }
-        </select>
-        <span class = {{this.deleteSpanClass}}></span>
-        <button id="deleteButton" (click)="deleteSelectedProduct(this.selectedProduct)"> DELETE </button>
-    </div>
+          </td>
+        </ng-container>
 
-</body> -->
+        <tr style="height: 75px;" class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="selection.toggle(row)">
+        </tr>
+    </table>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" class="mat-elevation-z8" showFirstLastButtons aria-label="Select page of products" >
+    </mat-paginator>
+  </div>
 
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()"
-                      [aria-label]="checkboxLabel()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)"
-                      [aria-label]="checkboxLabel(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
-  
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-        (click)="selection.toggle(row)">
-    </tr>
-  </table>
+  <div id="container">
+    <form (submit)="onSubmit()">
+        <span for="name"><b>Name</b>:   </span>
+        <input required type="text" [(ngModel)]="formData.item" name="name">
+
+        <span for="price"><b>Price</b>: </span>
+        <input required type="number" min="0" [(ngModel)]="formData.price" name="price">
+
+        <span for="img"><b>Image Link</b>: </span>
+        <input required type="text" [(ngModel)]="formData.image" name="img">
+
+        <button type="submit">DONE</button>
+        <span class="{{class}}"></span>
+        <span class="{{found}}">Product already inserted!</span>
+    </form>
+  </div>
+
+</body>

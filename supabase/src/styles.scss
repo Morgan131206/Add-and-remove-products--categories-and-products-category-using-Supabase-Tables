@@ -46,26 +46,20 @@ $supabase-theme: mat.define-theme((
      color: rgb(75, 75, 75);
 //     overflow: hidden;
 }
-#back{
-    position: absolute;
-    position: fixed;
-    left:0;
-    font-size: 20px;
-    margin: 45px;
-    margin-top: 75px;
-    bottom: 0;
-}
 
 a{
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    color: rgb(75, 75, 75);
-    position: absolute;
-    font-size: 20px;
-    margin: 45px;
-    margin-top: 75px;
-    bottom: 0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(75, 75, 75);
+  position: absolute;
+  font-size: 20px;
+  top: 80px;
+  left: 50px;
+}
+
+button {
+  cursor: pointer;
 }
 
 
